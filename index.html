@@ -1,1 +1,550 @@
-<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>WorldVi Social App</title>\n    <link rel="stylesheet" href="styles.css">\n</head>\n<body>\n    <!-- Hero Section -->\n    <section id="hero">\n        <h1>Welcome to WorldVi</h1>\n        <p>Connect, share, and explore like never before.</p>\n        <a href="#features" class="cta">Get Started</a>\n    </section>\n    \n    <!-- Features Section -->\n    <section id="features">\n        <h2>Features</h2>\n        <ul>\n            <li>Real-time interaction</li>\n            <li>Post and share media</li>\n            <li>Customizable profiles</li>\n            <li>Privacy-focused settings</li>\n        </ul>\n    </section>\n    \n    <!-- Stats Section -->\n    <section id="stats">\n        <h2>User Statistics</h2>\n        <p>Over 1 million users and counting!</p>\n    </section>\n    \n    <!-- Livestreaming Section -->\n    <section id="livestream">\n        <h2>Livestream Your Moments</h2>\n        <p>Join and share your live experiences with friends.</p>\n    </section>\n    \n    <!-- Call-to-Action Section -->\n    <section id="call-to-action">\n        <h2>Join WorldVi Today!</h2>\n        <p>Sign up now to be part of our growing community.</p>\n        <a href="signup.html" class="cta">Sign Up</a>\n    </section>\n</body>\n</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WorldVi – Share. Stream. Connect.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131c;
+      --card: #1a1a28;
+      --accent: #ff3b6b;
+      --accent2: #7c3aff;
+      --glow: rgba(255,59,107,0.35);
+      --glow2: rgba(124,58,255,0.25);
+      --text: #f0eeff;
+      --muted: #8884aa;
+      --border: rgba(255,255,255,0.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* NOISE OVERLAY */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.5;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 6%;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1.6rem;
+      background: linear-gradient(120deg, #ff3b6b, #7c3aff);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #fff; border: none; padding: 0.6rem 1.5rem;
+      border-radius: 50px; font-weight: 600; font-size: 0.9rem;
+      cursor: pointer; transition: all 0.2s;
+      box-shadow: 0 0 20px var(--glow);
+      text-decoration: none;
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 0 30px var(--glow); }
+
+    /* HERO */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 8rem 6% 4rem;
+      overflow: hidden;
+    }
+
+    .hero-orb {
+      position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none;
+    }
+    .orb1 { width: 600px; height: 600px; background: var(--glow); top: -100px; left: -150px; opacity: 0.5; animation: drift 8s ease-in-out infinite alternate; }
+    .orb2 { width: 500px; height: 500px; background: var(--glow2); bottom: 0; right: -100px; opacity: 0.5; animation: drift 10s ease-in-out infinite alternate-reverse; }
+
+    @keyframes drift { from { transform: translateY(0) scale(1); } to { transform: translateY(40px) scale(1.08); } }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(255,59,107,0.12); border: 1px solid rgba(255,59,107,0.3);
+      color: var(--accent); padding: 0.4rem 1rem; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .live-dot {
+      width: 7px; height: 7px; background: var(--accent); border-radius: 50%;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.4; transform:scale(1.5); } }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -2px;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+
+    h1 span {
+      background: linear-gradient(120deg, #ff3b6b 20%, #7c3aff 80%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      max-width: 560px; color: var(--muted);
+      font-size: 1.15rem; margin: 1.5rem auto 2.5rem;
+      font-weight: 300;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-btns {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; border: none; padding: 0.85rem 2.2rem;
+      border-radius: 50px; font-weight: 700; font-size: 1rem;
+      cursor: pointer; transition: all 0.25s;
+      box-shadow: 0 4px 30px var(--glow);
+      text-decoration: none; display: inline-block;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 40px var(--glow); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text); border: 1px solid var(--border);
+      padding: 0.85rem 2.2rem; border-radius: 50px;
+      font-weight: 600; font-size: 1rem;
+      cursor: pointer; transition: all 0.25s;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-outline:hover { border-color: rgba(255,255,255,0.25); transform: translateY(-3px); }
+
+    /* HERO MOCKUP */
+    .hero-mockup {
+      position: relative; margin-top: 4rem; width: 100%; max-width: 900px;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+
+    .mockup-frame {
+      background: var(--card); border-radius: 20px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px var(--border);
+    }
+
+    .mockup-bar {
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.9rem 1.2rem;
+      background: var(--surface); border-bottom: 1px solid var(--border);
+    }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ff5f56; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+
+    .mockup-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 2px;
+      padding: 2px; background: var(--bg);
+    }
+
+    .video-thumb {
+      aspect-ratio: 16/9;
+      position: relative; overflow: hidden;
+      background: var(--surface);
+    }
+
+    .video-thumb::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--c1, #ff3b6b22), var(--c2, #7c3aff22));
+    }
+
+    .thumb-1 { --c1: #ff3b6b33; --c2: #ff6b3b22; }
+    .thumb-2 { --c1: #7c3aff33; --c2: #3b6bff22; }
+    .thumb-3 { --c1: #3bffb422; --c2: #3baaff22; }
+    .thumb-4 { --c1: #ffb43b22; --c2: #ff3b6b22; }
+    .thumb-5 { --c1: #3b6bff22; --c2: #7c3aff33; }
+    .thumb-6 { --c1: #ff3baa22; --c2: #aa3bff22; }
+
+    .live-badge {
+      position: absolute; top: 8px; left: 8px;
+      background: var(--accent); color: #fff;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.05em;
+      padding: 2px 8px; border-radius: 4px; text-transform: uppercase;
+    }
+
+    .play-icon {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    }
+    .play-icon svg { opacity: 0.7; }
+
+    .views {
+      position: absolute; bottom: 6px; right: 8px;
+      font-size: 0.7rem; color: rgba(255,255,255,0.6);
+    }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+
+    /* STATS */
+    .stats {
+      display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;
+      padding: 3rem 6%;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2.5rem; font-weight: 800;
+      background: linear-gradient(120deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-label { color: var(--muted); font-size: 0.85rem; margin-top: 0.2rem; }
+
+    /* FEATURES */
+    .section { padding: 6rem 6%; max-width: 1200px; margin: 0 auto; }
+
+    .section-tag {
+      display: inline-block;
+      color: var(--accent); font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -1px;
+      max-width: 550px; margin-bottom: 1rem;
+    }
+
+    .section-sub { color: var(--muted); max-width: 480px; font-size: 1rem; margin-bottom: 3.5rem; }
+
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem;
+      transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .feature-card:hover { transform: translateY(-6px); border-color: rgba(255,59,107,0.2); }
+    .feature-card:hover::before { opacity: 1; }
+
+    .feature-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 1.2rem;
+      background: linear-gradient(135deg, rgba(255,59,107,0.15), rgba(124,58,255,0.15));
+    }
+
+    .feature-title {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.6rem;
+    }
+    .feature-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+
+    /* HOW IT WORKS */
+    .how-section {
+      padding: 6rem 6%;
+      background: var(--surface);
+    }
+    .how-inner { max-width: 1200px; margin: 0 auto; }
+
+    .steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem; margin-top: 3.5rem; position: relative;
+    }
+
+    .step {
+      text-align: center; padding: 2rem 1.5rem;
+    }
+
+    .step-num {
+      width: 52px; height: 52px; border-radius: 50%;
+      border: 2px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem;
+      color: var(--accent); margin: 0 auto 1.2rem;
+      box-shadow: 0 0 20px var(--glow);
+    }
+
+    .step h3 { font-family: 'Syne', sans-serif; font-weight: 700; margin-bottom: 0.5rem; }
+    .step p { color: var(--muted); font-size: 0.9rem; }
+
+    /* LIVE SECTION */
+    .live-section {
+      padding: 6rem 6%;
+      background: linear-gradient(135deg, rgba(255,59,107,0.06) 0%, rgba(124,58,255,0.06) 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .live-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    }
+
+    .live-visual {
+      position: relative;
+    }
+
+    .live-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.5);
+    }
+
+    .live-video-area {
+      height: 200px;
+      background: linear-gradient(135deg, rgba(255,59,107,0.2), rgba(124,58,255,0.2));
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+
+    .live-pill {
+      position: absolute; top: 14px; left: 14px;
+      background: var(--accent); color: #fff;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em;
+      padding: 4px 12px; border-radius: 50px; text-transform: uppercase;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    .viewer-count {
+      position: absolute; top: 14px; right: 14px;
+      background: rgba(0,0,0,0.5); color: #fff;
+      font-size: 0.8rem; padding: 4px 10px; border-radius: 50px;
+    }
+
+    .live-info { padding: 1.2rem; }
+    .live-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.4rem; }
+    .live-host { color: var(--muted); font-size: 0.85rem; }
+
+    .chat-preview {
+      margin-top: -1px; padding: 1rem; border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .chat-msg { display: flex; gap: 0.5rem; font-size: 0.8rem; margin-bottom: 0.4rem; }
+    .chat-user { color: var(--accent); font-weight: 600; }
+    .chat-text { color: var(--muted); }
+
+    .floating-badge {
+      position: absolute; bottom: -20px; right: -20px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1rem 1.2rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      display: flex; align-items: center; gap: 0.8rem;
+      min-width: 180px;
+    }
+
+    .fb-icon { font-size: 1.5rem; }
+    .fb-label { font-size: 0.7rem; color: var(--muted); }
+    .fb-value { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; }
+
+    /* CTA */
+    .cta-section {
+      padding: 8rem 6%; text-align: center; position: relative; overflow: hidden;
+    }
+
+    .cta-orb {
+      position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none;
+      width: 400px; height: 400px;
+      background: linear-gradient(135deg, var(--glow), var(--glow2));
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      opacity: 0.4;
+    }
+
+    .cta-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+
+    .cta-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 800; line-height: 1.05; letter-spacing: -2px; margin-bottom: 1.5rem;
+    }
+
+    .cta-sub { color: var(--muted); font-size: 1.1rem; margin-bottom: 2.5rem; }
+
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .store-btn {
+      display: inline-flex; align-items: center; gap: 0.7rem;
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--text); text-decoration: none;
+      padding: 0.85rem 1.8rem; border-radius: 14px;
+      font-weight: 600; transition: all 0.25s;
+    }
+    .store-btn:hover { border-color: rgba(255,59,107,0.4); transform: translateY(-3px); }
+    .store-btn-icon { font-size: 1.5rem; }
+    .store-label { font-size: 0.7rem; color: var(--muted); }
+    .store-name { font-size: 0.95rem; display: block; }
+
+    /* FOOTER */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 6%;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: gap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem;
+      background: linear-gradient(120deg, #ff3b6b, #7c3aff);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-copy { color: var(--muted); font-size: 0.8rem; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .live-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .floating-badge { bottom: auto; right: 0; top: -20px; }
+      .stats { gap: 2rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">WorldVi</div>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#live">Live</a></li>
+    </ul>
+    <a href="#download" class="nav-cta">Get the App</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+
+    <div class="badge">
+      <span class="live-dot"></span>
+      Live streaming is here
+    </div>
+
+    <h1>Share videos.<br/><span>Go live.</span><br/>Own your moment.</h1>
+
+    <p class="hero-sub">WorldVi is the platform where creators upload, go live, and build communities — all in one powerful app.</p>
+
+    <div class="hero-btns">
+      <a href="#download" class="btn-primary">Start for Free</a>
+      <a href="#features" class="btn-outline">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        See how it works
+      </a>
+    </div>
+
+    <div class="hero-mockup">
+      <div class="mockup-frame">
+        <div class="mockup-bar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+        </div>
+        <div class="mockup-grid">
+          <div class="video-thumb thumb-1">
+            <span class="live-badge">● Live</span>
+            <div class="play-icon"><svg width="32" height="32" fill="rgba(255,255,255,0.8)" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div>
+            <span class="views">12.4K watching</span>
+          </div>
+          <div class="video-thumb thumb-2">
+            <div class="play-icon"><svg width="32" height="32" fill="rgba(255,255,255,0.8)" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div>
+            <span class="views">892K views</span>
+          </div>
+          <div class="video-thumb thumb-3">
+            <span class="live-badge">● Live</span>
+            <div class="play-icon"><svg width="32" height="32" fill="rgba(255,255,255,0.8)" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div>
+            <span class="views">3.1K watching</span>
+          </div>
+          <div class="video-thumb thumb-4">
+            <div class="play-icon"><svg width="32" height="32" fill="rgba(255,255,255,0.8)" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div>
+            <span class="views">2.3M views</span>
+          </div>
+          <div class="video-thumb thumb-5">
+            <span class="live-badge">● Live</span>
+            <div class="play-icon"><svg width="32" height="32" fill="rgba(255,255,255,0.8)" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div>
+            <span class="views">7.8K watching</span>
+          </div>
+          <div class="video-thumb thumb-6">
+            <div class="play-icon"><svg width="32" height="32" fill="rgba(255,255,255,0.8)" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21"/></svg></div>
+            <span class="views">445K views</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-item">
+      <div class="stat-num">10M+</div>
+      <div class="stat-label">Active Creators</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">500M+</div>
+      <div class="stat-label">Videos Shared</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">150+</div>
+      <div class="stat-label">Countries Reached</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2M+</div>
+      <div class="stat-label">Live Streams Daily</div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="section" id="features">
+    <span class="section-tag">Features</span>
+    <h2 class="section-title">Everything a creator needs</h2>
+    
